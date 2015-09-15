@@ -28,5 +28,5 @@ make
 ## Usage
 ```
 ./run_*/run_*.sh
-use -minx [coord] ** to clip the range
+use -minx [coord] ... to clip the range
 ```

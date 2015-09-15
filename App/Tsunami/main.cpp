@@ -180,7 +180,7 @@ int main( int argc, char** argv )
 	screen.registerObject( point, renderer );
 	screen.registerObject( polygon, polygon_renderer );
 	screen.setBackgroundColor( kvs::RGBColor::Black() );
-	// screen.setSize( 1024, 768 );
+	screen.setSize( 1024, 768 );
 	screen.show();
 
 	kvs::StochasticRenderingCompositor compositor( screen.scene() );

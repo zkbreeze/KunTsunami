@@ -3,7 +3,7 @@ KunTsunami
 Particle-based rendering library for Tsunami data created by Kun Zhao.
 
 ## Requirements
-* [KVS](https://github.com/naohisas/KVS) 
+* [KVS](https://github.com/zkbreeeze/kvs) 
 * [CMake](http://www.cmake.org/)
 
 ## Settings

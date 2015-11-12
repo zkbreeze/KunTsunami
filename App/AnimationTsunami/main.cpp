@@ -37,6 +37,7 @@
 #include <kvs/StochasticPolygonRenderer>
 #include "OBJObject.h"
 #include <kvs/RGBFormulae>
+#include "TsunamiObject.h"
 
 namespace
 {
@@ -129,7 +130,7 @@ void initialize( std::string filename, float fraction = 0.0, size_t input_timest
     for ( int i = 0; i < file_length; i++ )
     {
         const kvs::File file = files[i];
-        if( file.extension() == "kvsml" )
+        if( file.extension() == "posivelo" )
         {
             ::nsteps++;
             file_name.push_back( file.filePath() );
@@ -147,17 +148,15 @@ void initialize( std::string filename, float fraction = 0.0, size_t input_timest
     time.start();
     for ( int i = 0; i < ::nsteps; i++ )
     {
-        if( fraction ) 
-            ::object[i] = new kun::PointImporter( file_name[i], fraction );
-        else
-            ::object[i] = new kun::PointImporter( file_name[i] );
-
+        kun::TsunamiObject* tsunami = new kun::TsunamiObject( file_name[i] );
+        object[i] = tsunami->toKUNPointObject( 1 ); 
 
         if( ::isClipping ) ::object[i]->setMinMaxRange( ::min_range, ::max_range );
 
         kun::DensityCalculator* calculator = new kun::DensityCalculator( ::object[i] );
         calculator->setMaxGrid( ::max_grid );
         ::density_volume[i] = calculator->outputDensityVolume();
+        
         delete calculator;
 
         ::object[i]->setName( ::ObjectName );
@@ -340,7 +339,7 @@ int main( int argc, char** argv )
 
     kvs::CommandLine param( argc, argv );
     param.addHelpOption();
-    param.addOption( "f", "KVSML Point Data Directory", 1, true );
+    param.addOption( "f", "Tsunami Point Data Directory", 1, true );
     param.addOption( "nos", "No Shading", 0, false );
     param.addOption( "rep", "Set the Repetition Level", 1, false );
     param.addOption( "rep_low", "Set Low Repetition Level, which is used LOD animation", 1, false );
